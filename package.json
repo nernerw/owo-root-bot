@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "node clean.js",
+    "test": "npm run build && node --test tests/unit/social/social-interactions.test.cjs",
     "dev:root": "rootsdk start devhost",
     "bot": "npm run dev:root",
     "render:start": "node scripts/start-render.cjs",

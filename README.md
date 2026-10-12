@@ -15,7 +15,7 @@ An OwO-inspired social and gaming bot for **Root**, built with TypeScript. Sudo 
     - [Games](#games)
     - [Virtual economy](#virtual-economy)
     - [Community utilities](#community-utilities)
-  - [Planned Commands](#planned-commands)
+  - [Commands](#commands)
   - [Project Structure](#project-structure)
   - [Technology](#technology)
   - [Getting Started](#getting-started)
@@ -78,11 +78,12 @@ The project follows these principles:
 
 ## Features
 
-The following is the intended feature set, not a guarantee that every feature is currently available.
+The social interactions below are implemented. The game, economy, and utility
+sections describe planned features unless noted otherwise.
 
 ### Social interactions
 
-Planned actions include:
+Implemented interactions:
 
 - `hug`
 - `smile`
@@ -96,7 +97,17 @@ Planned actions include:
 - `run`
 - `behind`
 
-Social actions are intended to support reusable response templates, optional GIFs, and appropriate target validation.
+Each interaction chooses a response template and, when available, a direct GIF URL from
+[`src/features/social/gif-catalog.json`](./src/features/social/gif-catalog.json).
+`hug`, `punch`, `kill`, and `behind` require one structured Root user mention;
+`smile` and `look` accept an optional mention; the other actions do not take a
+target. The bot only accepts targets provided by Root's structured message
+reference map, not text that merely looks like `@someone`. `kill` is fictional,
+non-graphic roleplay only.
+
+The bot sends the GIF's direct Giphy URL as part of the message content. Whether
+Root's client displays an inline animation or preview depends on Root; the bot
+does not upload GIF attachments.
 
 ### Games
 
@@ -135,19 +146,24 @@ Planned utilities include:
 - Daily rewards.
 - Community-specific configuration, where supported.
 
-## Planned Commands
+## Commands
 
-The intended command prefix is `owo`. The exact parsing rules and supported mention formats depend on the Root SDK.
+The command prefix is `owo`.
 
 | Example | Intended purpose |
 |---|---|
-| `owo help` | Display available commands |
-| `owo hug @someone` | Send a hug interaction |
-| `owo smile` | Send a smile interaction |
-| `owo blackjack` | Start or play blackjack |
-| `owo profile` | Display a user profile |
+| `owo hug @someone` | Send a hug interaction with a GIF link |
+| `owo smile [@someone]` | Send a smile interaction with a GIF link |
+| `owo punch @someone` | Send a playful punch interaction |
+| `owo kill @someone` | Send a fictional, non-graphic roleplay interaction |
+| `owo look [@someone]` | Send a look interaction |
+| `owo sad`, `owo happy`, `owo excited` | Send an expressive reaction |
+| `owo jump`, `owo run` | Send an action reaction |
+| `owo behind @someone` | Peek out from behind a mentioned user |
+| `owo help`, `owo blackjack`, `owo profile` | Planned; not implemented yet |
 
-These are examples of intended behavior, not confirmation that the commands are already registered or functional. Consult the actual implementation and help output for the current supported command list.
+Targeted commands require one actual Root user mention. `smile` and `look`
+accept an optional mention. Other interactions do not accept targets.
 
 ## Project Structure
 
@@ -189,7 +205,7 @@ Some directories may contain placeholders until their features are implemented. 
 - **Platform:** Root.
 - **Runtime:** The runtime required by the official Root bot starter.
 - **SDK:** The compatible Root SDK version specified by the starter.
-- **Testing:** The test runner configured in the project.
+- **Testing:** Node.js built-in test runner (`node:test`).
 - **Persistence:** To be selected or integrated based on verified platform and runtime capabilities.
 
 Do not assume a particular package manager, database, test framework, or deployment command until it has been confirmed by the project configuration and official documentation.
@@ -363,7 +379,8 @@ This should include:
 - Appropriate error handling.
 - Tests for the command's business logic.
 
-Only mark the milestone complete after the implementation has been checked and the relevant tests have actually passed.
+This first social-interaction slice is implemented. Run `npm test` to build and
+execute its unit tests; it does not require a Root token.
 
 ## Architecture
 
@@ -411,7 +428,14 @@ All currency is virtual and has no real-world monetary value by default.
 
 ## Testing
 
-Use the testing tools already configured in the repository.
+Run the social unit tests with:
+
+```bash
+npm test
+```
+
+This builds the TypeScript application and runs the tests with Node.js's built-in
+`node:test` runner.
 
 Important test areas include:
 
@@ -438,10 +462,10 @@ Unit tests should not require production bot credentials. Platform integration t
 
 ### Phase 2 — Social interactions
 
-- [ ] Implement the GIF catalog.
-- [ ] Implement randomized response templates.
-- [ ] Implement `owo hug @someone`.
-- [ ] Add remaining social actions.
+- [x] Implement the GIF catalog.
+- [x] Implement randomized response templates.
+- [x] Implement `owo hug @someone`.
+- [x] Add remaining social actions.
 - [ ] Add help and usage information.
 
 ### Phase 3 — Game framework
