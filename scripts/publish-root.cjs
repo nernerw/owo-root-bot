@@ -25,8 +25,20 @@ const rootsdkCli = path.join(
 
 function runNodeScript(scriptPath, args = []) {
   const result = spawnSync(process.execPath, [scriptPath, ...args], {
-    stdio: "inherit",
+    encoding: "utf8",
+    maxBuffer: 10 * 1024 * 1024,
   });
+
+  if (result.stdout) {
+    process.stdout.write(
+      result.stdout.split(authToken).join("[REDACTED_ROOT_AUTH_TOKEN]"),
+    );
+  }
+  if (result.stderr) {
+    process.stderr.write(
+      result.stderr.split(authToken).join("[REDACTED_ROOT_AUTH_TOKEN]"),
+    );
+  }
 
   if (result.error) {
     console.error(`Could not start ${path.basename(scriptPath)}:`, result.error.message);

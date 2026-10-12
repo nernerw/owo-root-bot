@@ -286,7 +286,7 @@ npm ci
 npm run root:publish
 ```
 
-This builds the TypeScript output, packages the project using `root-manifest.json`, and uploads it to Root. Do not use the development `DEV_TOKEN` as `ROOT_AUTH_TOKEN`; they serve different purposes. Keep both tokens secret.
+This builds the TypeScript output, packages the project using `root-manifest.json`, and uploads it to Root. Do not use the development `DEV_TOKEN` as `ROOT_AUTH_TOKEN`; they serve different purposes. Keep both tokens secret. The publish wrapper redacts the auth token from captured CLI output before printing it.
 
 ## Render and persistent data
 
