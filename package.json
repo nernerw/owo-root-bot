@@ -1,0 +1,23 @@
+{
+  "name": "@sudo-owo/bot",
+  "author": "",
+  "description": "sudo owo Bot",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@rootsdk/dev-tools": "0.21.3",
+    "@rootsdk/server-bot": "0.21.3",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "node clean.js",
+    "bot": "rootsdk start devhost"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.7": true
+  }
+}
