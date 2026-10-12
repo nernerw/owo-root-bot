@@ -260,9 +260,43 @@ DEV_TOKEN=your-dev-token-value
 
 Edit it using your preferred text editor and supply the required values locally. Never commit real credentials. If a token is accidentally exposed in terminal output or chat, revoke it in the Root Dev Portal and generate a replacement.
 
-### 5. Run the project
+### 5. Run locally
 
-Use the scripts defined in the actual `package.json` and the official Root starter documentation. The development, build, and deployment commands are intentionally not hardcoded here because they must match the installed SDK and runtime.
+Start the Root local development host with:
+
+```bash
+npm run dev:root
+```
+
+`npm run bot` remains an alias for this local-only development command. It is not the production server command.
+
+### Publish a package for Root
+
+Root runs the published bot package. The official Root CLI's `start devhost` command is for local development; it is not a standalone production server for Render.
+
+Set these variables in the shell, CI environment, or deployment environment that will publish the package:
+
+- `ROOT_AUTH_TOKEN` — an auth token from Root Dev Portal → Settings → Tokens.
+- `ROOT_HOST` — optional; defaults to `dev.rootapp.com`, as in the Dev Portal quick start.
+
+Then run:
+
+```bash
+npm ci
+npm run root:publish
+```
+
+This builds the TypeScript output, packages the project using `root-manifest.json`, and uploads it to Root. Do not use the development `DEV_TOKEN` as `ROOT_AUTH_TOKEN`; they serve different purposes. Keep both tokens secret.
+
+## Render and persistent data
+
+Render does not automatically provide a database to every service. A Render Postgres instance is a separate service that must be created and configured.
+
+The bot currently has no application-owned persistent features, so it does not need a Render database. The installed Root SDK exposes its own `dataStore`; its verified `RootDatabaseConfig` currently describes SQLite, which is distinct from a Render Postgres database.
+
+Do not run `npm run bot` as a Render service's start command: it starts Root's local dev host. Publish the package to Root instead, where Root runs the bot. `npm run root:publish` is a one-shot build/upload command, not a long-running Render service command. It can run from a local terminal or a one-shot CI/deploy job with `ROOT_AUTH_TOKEN` configured as a secret. Do not keep a Render web service or worker running just to host this Root bot.
+
+When a feature first needs app-owned persistence, add repository interfaces under `src/data/` and implement a provider behind them. Select a concrete database then, based on the feature's data requirements and verified production networking/secrets support. That keeps feature logic independent of the chosen database and avoids introducing an unused database connection now.
 
 ## Configuration
 

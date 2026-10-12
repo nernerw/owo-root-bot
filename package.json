@@ -7,17 +7,23 @@
   "engines": {
     "node": ">=22"
   },
+  "dependencies": {
+    "@rootsdk/server-bot": "0.21.3"
+  },
   "devDependencies": {
     "@rootsdk/dev-tools": "0.21.3",
-    "@rootsdk/server-bot": "0.21.3",
     "typescript": "^5.8.2"
   },
   "scripts": {
     "build": "tsc",
     "clean": "node clean.js",
-    "bot": "rootsdk start devhost"
+    "dev:root": "rootsdk start devhost",
+    "bot": "npm run dev:root",
+    "root:package": "npm run build && rootsdk build package --output-file ./rootapp.pkg --project-folder .",
+    "root:publish": "node scripts/publish-root.cjs"
   },
   "allowScripts": {
-    "sqlite3@5.1.7": true
+    "sqlite3@5.1.7": true,
+    "@rootsdk/dev-tools@0.21.3": true
   }
 }
