@@ -19,6 +19,7 @@
     "clean": "node clean.js",
     "dev:root": "rootsdk start devhost",
     "bot": "npm run dev:root",
+    "render:start": "node scripts/start-render.cjs",
     "root:package": "npm run build && rootsdk build package --output-file ./rootapp.pkg --project-folder .",
     "root:publish": "node scripts/publish-root.cjs"
   },

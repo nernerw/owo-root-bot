@@ -1,0 +1,9 @@
+services:
+  - type: worker
+    name: sudo-owo-root-bot
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm run render:start
+    envVars:
+      - key: DEV_TOKEN
+        sync: false

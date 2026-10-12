@@ -294,7 +294,13 @@ Render does not automatically provide a database to every service. A Render Post
 
 The bot currently has no application-owned persistent features, so it does not need a Render database. The installed Root SDK exposes its own `dataStore`; its verified `RootDatabaseConfig` currently describes SQLite, which is distinct from a Render Postgres database.
 
-Do not run `npm run bot` as a Render service's start command: it starts Root's local dev host. Publish the package to Root instead, where Root runs the bot. `npm run root:publish` is a one-shot build/upload command, not a long-running Render service command. It can run from a local terminal or a one-shot CI/deploy job with `ROOT_AUTH_TOKEN` configured as a secret. Do not keep a Render web service or worker running just to host this Root bot.
+### Run the development host on Render
+
+If you specifically want to keep the current development bot connected from Render, use a **Background Worker**, not a Web Service: the Root dev host does not provide a public HTTP endpoint for Render's port check. This repository includes [render.yaml](./render.yaml) for that configuration. Create or update the Render service as a Background Worker and set `DEV_TOKEN` in its environment to the development-community token from Root. Render does not receive your local `.env` file. `ROOT_AUTH_TOKEN` is not used to start the development host; it is only used by `npm run root:publish`.
+
+The `render:start` command checks for `DEV_TOKEN` before launching the Root dev host, so a missing Render variable produces a short actionable error instead of an SDK stack trace. Keep the worker running to keep the development connection active.
+
+This runs Root's **development host** remotely against the development community. Root documents `devhost` as the local testing workflow and does not support fully self-hosting its production bot runtime. For production, publish the bot package to Root with `npm run root:publish`; Render is not the live bot host in that model.
 
 When a feature first needs app-owned persistence, add repository interfaces under `src/data/` and implement a provider behind them. Select a concrete database then, based on the feature's data requirements and verified production networking/secrets support. That keeps feature logic independent of the chosen database and avoids introducing an unused database connection now.
 
