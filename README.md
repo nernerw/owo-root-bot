@@ -43,9 +43,11 @@ Put a comma after the previous JSON entry. `targetMode` can be `"required"`
 (one Root mention required), `"optional"` (works with or without a mention), or
 `"none"` (target not allowed). Use `{{target}}` in targeted response templates.
 The `templates.json` and `giflinks.json` keys must match the action names in
-`actions.json`. GIF lists may be empty; use direct `.gif` URLs rather than
-search/share links. The bot sends the URL in message content; inline animation
-depends on Root's client.
+`actions.json`. GIF lists may be empty. Any valid `http://` or `https://` link
+is accepted, including links from Klipy, Giphy, Tenor, or other hosts; the link
+does not have to end in `.gif`. The bot sends the link as message content and
+does not fetch or download it. Whether Root shows a preview or animation
+depends on Root's client and the kind of link.
 
 `kill` is fictional, non-graphic roleplay only.
 

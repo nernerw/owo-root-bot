@@ -21,7 +21,10 @@ test("every configured action responds to its command", () => {
     );
 
     assert.ok(response, `${name} should respond`);
-    assert.match(response, /https:\/\/media\.giphy\.com\/media\/.+\/giphy\.gif$/);
+    assert.ok(
+      giflinks[name].some((link) => response.includes(link)),
+      `${name} should use one configured GIF link`,
+    );
   }
 });
 
@@ -44,11 +47,11 @@ test("targeted actions require Root's structured mention", () => {
 test("optional and targetless actions work without a target", () => {
   assert.match(
     getInteractionResponse("owo smile", actorId, [], firstChoice),
-    /giphy\.gif$/,
+    /https?:\/\/\S+$/,
   );
   assert.match(
     getInteractionResponse("owo happy", actorId, [], firstChoice),
-    /giphy\.gif$/,
+    /https?:\/\/\S+$/,
   );
 });
 
@@ -94,5 +97,21 @@ test("an action with no GIF links still sends a text response", () => {
     );
   } finally {
     giflinks.happy.push(...saved);
+  }
+});
+
+test("accepts web links from other hosts and with non-GIF paths or query strings", () => {
+  const original = giflinks.happy[0];
+  const customLink = "https://example.com/anime/kiss?format=webp&source=custom";
+  giflinks.happy[0] = customLink;
+
+  try {
+    assert.ok(
+      getInteractionResponse("owo happy", actorId, [], firstChoice).includes(
+        customLink,
+      ),
+    );
+  } finally {
+    giflinks.happy[0] = original;
   }
 });

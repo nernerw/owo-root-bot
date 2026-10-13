@@ -26,7 +26,9 @@ the user asks for; games, economy, and database features are not implemented.
 
 To add an interaction, add the same action name to all three JSON files. Set
 `targetMode` to `required`, `optional`, or `none`, add response lists in
-`templates.json`, and add direct GIF URLs (or an empty list) in `giflinks.json`.
+`templates.json`, and add HTTP(S) links (or an empty list) in `giflinks.json`.
+Links can use any host or path; the bot sends them as text and does not fetch
+them.
 Do not add a separate command handler. `kill` must remain fictional,
 non-graphic roleplay.
 
