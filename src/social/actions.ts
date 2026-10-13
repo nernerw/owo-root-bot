@@ -22,21 +22,6 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isWebLink(value: string): boolean {
-  try {
-    const url = new URL(value);
-    return (
-      (url.protocol === "http:" || url.protocol === "https:") &&
-      url.hostname.length > 0
-    );
-  } catch (error: unknown) {
-    if (error instanceof TypeError) {
-      return false;
-    }
-    throw error;
-  }
-}
-
 function stringList(value: unknown, label: string): readonly string[] {
   if (
     !Array.isArray(value) ||
@@ -105,10 +90,6 @@ function loadActions(
     ) {
       throw new Error(`"${name}" is missing a response template.`);
     }
-    if (!gifLinks.every(isWebLink)) {
-      throw new Error(`"${name}" must use valid HTTP or HTTPS links.`);
-    }
-
     loaded.set(name, {
       targetMode: config.targetMode,
       responses: { withTarget, withoutTarget },

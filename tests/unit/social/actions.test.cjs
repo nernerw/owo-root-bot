@@ -100,9 +100,9 @@ test("an action with no GIF links still sends a text response", () => {
   }
 });
 
-test("accepts web links from other hosts and with non-GIF paths or query strings", () => {
+test("sends any configured GIF string without validating its URL", () => {
   const original = giflinks.happy[0];
-  const customLink = "https://example.com/anime/kiss?format=webp&source=custom";
+  const customLink = "not even a URL";
   giflinks.happy[0] = customLink;
 
   try {
