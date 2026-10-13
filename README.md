@@ -61,15 +61,16 @@ npm test
 
 Set `DEV_TOKEN` in your local `.env` using the development token from Root.
 Never commit or share the token. Run the local Root development host with
-`npm run dev:root` (`npm run bot` is an alias).
+`npm run dev:root` (`npm run bot` is an alias). This rebuilds the bot first so
+changes to `giflinks.json` and the other JSON configuration files are loaded.
 
 ## Render
 
 Use a Render **Background Worker** with [`render.yaml`](./render.yaml). Set
 `DEV_TOKEN` in the Render service environment; Render does not read your local
-`.env`. The start command is `npm run render:start`. This runs the Root
-development host remotely against the development community, not Root's
-production runtime.
+`.env`. Render builds the bot before starting it with `npm run render:start`.
+This runs the Root development host remotely against the development
+community, not Root's production runtime.
 
 ## Publish to Root
 

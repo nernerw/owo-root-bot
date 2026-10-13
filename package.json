@@ -18,9 +18,9 @@
     "build": "npm run clean && tsc",
     "clean": "node clean.js",
     "test": "npm run build && node --test tests/unit/social/actions.test.cjs",
-    "dev:root": "rootsdk start devhost",
+    "dev:root": "npm run build && rootsdk start devhost",
     "bot": "npm run dev:root",
-    "render:start": "npm run dev:root",
+    "render:start": "rootsdk start devhost",
     "root:package": "npm run build && rootsdk build package --output-file ./rootapp.pkg --project-folder .",
     "root:publish": "node scripts/publish-root.cjs"
   },

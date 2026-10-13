@@ -28,6 +28,36 @@ test("every configured action responds to its command", () => {
   }
 });
 
+test("each action randomly selects only from its own GIF list", () => {
+  for (const [name, config] of Object.entries(actions)) {
+    const command = `owo ${name}${config.targetMode === "required" ? " @Rin" : ""}`;
+    const expectedFirstGif = giflinks[name][0];
+    const expectedLastGif = giflinks[name].at(-1);
+
+    for (const [randomValue, expectedGif] of [
+      [0, expectedFirstGif],
+      [0.999999, expectedLastGif],
+    ]) {
+      let calls = 0;
+      const response = getInteractionResponse(
+        command,
+        actorId,
+        config.targetMode === "required" ? [mention] : [],
+        () => {
+          calls += 1;
+          return calls % 2 === 1 ? 0 : randomValue;
+        },
+      );
+
+      assert.ok(
+        response?.endsWith(expectedGif),
+        `${name} should select its own GIF`,
+      );
+      assert.equal(calls, 2, `${name} should independently choose text and GIF`);
+    }
+  }
+});
+
 test("action, template, and GIF JSON files have matching action names", () => {
   assert.deepEqual(Object.keys(templates).sort(), Object.keys(actions).sort());
   assert.deepEqual(Object.keys(giflinks).sort(), Object.keys(actions).sort());
