@@ -1,0 +1,13 @@
+{
+  "hug": { "targetMode": "required" },
+  "smile": { "targetMode": "optional" },
+  "punch": { "targetMode": "required" },
+  "kill": { "targetMode": "required" },
+  "look": { "targetMode": "optional" },
+  "sad": { "targetMode": "none" },
+  "happy": { "targetMode": "none" },
+  "excited": { "targetMode": "none" },
+  "jump": { "targetMode": "none" },
+  "run": { "targetMode": "none" },
+  "behind": { "targetMode": "required" }
+}

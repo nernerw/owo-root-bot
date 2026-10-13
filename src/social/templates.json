@@ -1,0 +1,66 @@
+{
+  "hug": {
+    "withTarget": [
+      "💞 A big, warm hug for {{target}}!",
+      "🤗 {{target}} gets a cozy hug!",
+      "💕 Wrapping {{target}} in a friendly hug!"
+    ],
+    "withoutTarget": []
+  },
+  "smile": {
+    "withTarget": [
+      "😊 Sends a bright smile to {{target}}!",
+      "✨ {{target}} gets a happy smile!"
+    ],
+    "withoutTarget": ["😊 A bright smile!", "✨ Keep smiling!"]
+  },
+  "punch": {
+    "withTarget": [
+      "🥊 Playfully bonks {{target}}!",
+      "💥 A silly, harmless punch for {{target}}!",
+      "👊 {{target}} gets a cartoon-style punch!"
+    ],
+    "withoutTarget": []
+  },
+  "kill": {
+    "withTarget": [
+      "🎭 In a clearly fictional scene, dramatically defeats {{target}}!",
+      "🎬 {{target}} is playfully defeated in an imaginary scene!"
+    ],
+    "withoutTarget": []
+  },
+  "look": {
+    "withTarget": [
+      "👀 Takes a curious look at {{target}}.",
+      "🔎 {{target}} catches a curious glance!"
+    ],
+    "withoutTarget": ["👀 Looks around curiously.", "🔎 Takes a closer look."]
+  },
+  "sad": {
+    "withTarget": [],
+    "withoutTarget": ["😢 Feeling a little blue...", "🌧️ A quiet, sad moment."]
+  },
+  "happy": {
+    "withTarget": [],
+    "withoutTarget": ["☀️ Feeling happy!", "🌼 Happiness all around!"]
+  },
+  "excited": {
+    "withTarget": [],
+    "withoutTarget": ["🎉 Bursting with excitement!", "✨ Too excited to sit still!"]
+  },
+  "jump": {
+    "withTarget": [],
+    "withoutTarget": ["🦘 Jumps for joy!", "⬆️ Up, up, and away!"]
+  },
+  "run": {
+    "withTarget": [],
+    "withoutTarget": ["💨 Runs off at full speed!", "🏃 Gone in a flash!"]
+  },
+  "behind": {
+    "withTarget": [
+      "🙈 Peeks out from behind {{target}}!",
+      "👀 Hides behind {{target}} and peeks around!"
+    ],
+    "withoutTarget": []
+  }
+}
